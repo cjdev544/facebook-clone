@@ -7,18 +7,13 @@ import {
   UserGroupIcon,
   ViewGridIcon,
 } from '@heroicons/react/solid'
-import {
-  FlagIcon,
-  PlayIcon,
-  SearchIcon,
-  ShoppingCartIcon,
-} from '@heroicons/react/outline'
+import { FlagIcon, PlayIcon, SearchIcon } from '@heroicons/react/outline'
 import Logo from '../public/logo.png'
 import HeaderIcon from './HeaderIcon'
 
 const Header = () => {
   return (
-    <header className='sticky top-0 z-50 bg-white flex items-center p-2 lg:px-5 shadow-md'>
+    <header className='sticky top-0 z-50 bg-white flex items-center lg:px-5 shadow-md'>
       {/* Left */}
       <div className='flex items-center'>
         <Image src={Logo} alt='Logo' width={40} height={40} layout='fixed' />
@@ -38,7 +33,6 @@ const Header = () => {
           <HeaderIcon active Icon={HomeIcon} />
           <HeaderIcon Icon={FlagIcon} />
           <HeaderIcon Icon={PlayIcon} />
-          <HeaderIcon Icon={ShoppingCartIcon} />
           <HeaderIcon Icon={UserGroupIcon} />
         </div>
       </div>
