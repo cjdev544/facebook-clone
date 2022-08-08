@@ -8,10 +8,15 @@ import {
   ViewGridIcon,
 } from '@heroicons/react/solid'
 import { FlagIcon, PlayIcon, SearchIcon } from '@heroicons/react/outline'
+
+import useAuth from '../hooks/useAuth'
 import Logo from '../public/logo.png'
 import HeaderIcon from './HeaderIcon'
+import AvatarNoFound from '../public/avatar.png'
 
 const Header = () => {
+  const { authUser } = useAuth()
+
   return (
     <header className='sticky top-0 z-50 bg-white flex items-center lg:px-5 shadow-md'>
       {/* Left */}
@@ -39,15 +44,24 @@ const Header = () => {
 
       {/* Rigth  */}
       <div className='flex items-center sm:space-x-2 justify-end'>
-        {/* Profile picture */}
-        {/* <Image src='../public/perfil.jpg' alt='Avatar de usuario' /> */}
-        <p className='whitespace-nowrap font-semibold pr-3'>
-          Jefferson Camppos
-        </p>
         <ViewGridIcon className='icon' />
         <ChatIcon className='icon' />
         <BellIcon className='icon' />
         <ChevronDownIcon className='icon' />
+
+        <p className='whitespace-nowrap font-semibold cursor-pointer'>
+          {authUser?.displayName}
+        </p>
+        <div className='hidden md:inline-block'>
+          <Image
+            src={authUser?.photoURL ? authUser.photoURL : AvatarNoFound}
+            width={40}
+            height={40}
+            layout='fixed'
+            alt='Avatar de usuario'
+            className='rounded-full cursor-pointer'
+          />
+        </div>
       </div>
     </header>
   )

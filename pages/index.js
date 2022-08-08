@@ -5,6 +5,7 @@ import ClipLoader from 'react-spinners/ClipLoader'
 import Header from '../components/Header'
 import AuthForm from '../components/forms/AuthForm'
 import useAuth from '../hooks/useAuth'
+import Sidebar from '../components/Sidebar'
 
 export default function Home() {
   const { authUser, logout, initWhitGmail } = useAuth()
@@ -35,10 +36,10 @@ export default function Home() {
           <link rel='icon' href='/favicon.ico' />
         </Head>
         <Header />
-        <main>
+        <main className='flex'>
+          <Sidebar />
           <h1 className='text-3xl font-bold underline'>My Facebook App</h1>
           <button onClick={() => logout()}>Logaout</button>
-          <button onClick={() => initWhitGmail()}>logIn</button>
         </main>
       </div>
     )
