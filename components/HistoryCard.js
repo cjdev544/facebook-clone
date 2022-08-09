@@ -14,7 +14,7 @@ const HistoryCard = () => {
   const { authUser } = useAuth()
 
   return (
-    <div className='bg-white px-2 pb-3 rounded-xl shadow-md'>
+    <div className='bg-white px-2 pb-3 rounded-xl shadow-md border-1 border-gray-200'>
       <div className='flex items-center justify-around mb-3 border-gray-100 border-b-2'>
         <p className='py-4 px-10 text-center text-blue-500 font-medium border-blue-500 border-b-4'>
           Historias
@@ -27,13 +27,13 @@ const HistoryCard = () => {
         </p>
       </div>
       <div className='flex space-x-2'>
-        <div className='mt-2 relative rounded-2xl shadow-md'>
+        <div className='mt-2 relative rounded-2xl shadow-md overflow-hidden transition-all hover:opacity-90 cursor-pointer'>
           <Image
             src={authUser?.photoURL ? authUser.photoURL : AvatarNoFound}
             alt='Historia'
             height={220}
             width={130}
-            className='object-cover rounded-2xl'
+            className='object-cover rounded-2xl hover:scale-110'
           />
           <span className='z-10 absolute bottom-0 left-0 right-0 m-auto text-center text-gray-500 bg-white rounded-b-2xl pt-6 pb-3 font-medium'>
             Crear historia
@@ -42,13 +42,13 @@ const HistoryCard = () => {
             <PlusCircleIcon className='text-blue-500' />
           </div>
         </div>
-        <div className='mt-2 relative'>
+        <div className='mt-2 relative rounded-2xl shadow-md overflow-hidden transition-all hover:opacity-90 cursor-pointer'>
           <Image
             src={BruceHistory}
             alt='Historia'
             height={220}
             width={130}
-            className='object-cover rounded-2xl'
+            className='object-cover rounded-2xl hover:scale-110'
           />
           <span className='z-10 absolute bottom-3 left-0 right-0 m-auto text-center text-white font-medium'>
             Hulk
@@ -63,13 +63,13 @@ const HistoryCard = () => {
             />
           </div>
         </div>
-        <div className='mt-2 relative'>
+        <div className='mt-2 relative rounded-2xl shadow-md overflow-hidden transition-all hover:opacity-90 cursor-pointer'>
           <Image
             src={ViudaHistory}
             alt='Historia'
             height={220}
             width={130}
-            className='object-cover rounded-2xl'
+            className='object-cover rounded-2xl hover:scale-110'
           />
           <span className='z-10 absolute bottom-3 left-0 right-0 m-auto text-center text-white font-medium'>
             Viuda Negra
@@ -84,13 +84,13 @@ const HistoryCard = () => {
             />
           </div>
         </div>
-        <div className='mt-2 relative'>
+        <div className='mt-2 relative rounded-2xl shadow-md overflow-hidden transition-all hover:opacity-90 cursor-pointer'>
           <Image
             src={BrujiHistory}
             alt='Historia'
             height={220}
             width={130}
-            className='object-cover rounded-2xl'
+            className='object-cover rounded-2xl hover:scale-110'
           />
           <span className='z-10 absolute bottom-3 left-0 right-0 m-auto text-center text-white font-medium'>
             Bruja Escarlata

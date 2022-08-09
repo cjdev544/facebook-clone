@@ -11,7 +11,7 @@ const InputPublication = () => {
   const name = authUser.displayName.split(' ')[0]
 
   return (
-    <div className='bg-white shadow-md mt-4 rounded-xl'>
+    <div className='bg-white shadow-md mt-4 rounded-xl border-1 border-gray-200'>
       <div className='p-3'>
         <div className='flex items-center border-gray-100 border-b-2'>
           <div className='flex items-center ml-2 mb-3'>
@@ -24,7 +24,7 @@ const InputPublication = () => {
               className='rounded-full cursor-pointer'
             />
           </div>
-          <div className='w-full ml-2 mb-3 items-center rounded-full bg-gray-100 p-2 cursor-pointer'>
+          <div className='w-full ml-2 mb-3 items-center rounded-full bg-gray-100 p-2 cursor-pointer hover:bg-gray-200'>
             <span className='ml-2 text-gray-500'>
               ¿Qué estás pensando?, {name}
             </span>
