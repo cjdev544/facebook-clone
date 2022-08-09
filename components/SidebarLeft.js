@@ -13,13 +13,18 @@ import {
 } from '@heroicons/react/outline'
 
 import useAuth from '../hooks/useAuth'
+import useHeightScreen from '../hooks/useHeightScreen'
 import IconRow from './IconRow'
 
 const SidebarLeft = () => {
   const { authUser } = useAuth()
+  const { viewportHeight } = useHeightScreen()
 
   return (
-    <aside className='p-2 max-w-[600px] xl:min-w-[300px]'>
+    <aside
+      style={{ height: viewportHeight }}
+      className='overflow-y-scroll p-2 max-w-[600px] xl:min-w-[300px] scrollbar-hide'
+    >
       <div className='flex p-3 hover:bg-gray-200 rounded-lg'>
         <Image
           src={authUser?.photoURL ? authUser.photoURL : AvatarNoFound}

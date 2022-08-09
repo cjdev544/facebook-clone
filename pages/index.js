@@ -38,7 +38,7 @@ export default function Home() {
           <link rel='icon' href='/favicon.ico' />
         </Head>
         <Header />
-        <main className='flex justify-between'>
+        <main className='overflow-hidden flex justify-between bg-gray-100'>
           <SidebarLeft />
           <Feed />
           <SidebarRight />

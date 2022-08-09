@@ -18,7 +18,7 @@ const Header = () => {
   const { authUser } = useAuth()
 
   return (
-    <header className='sticky top-0 z-50 bg-white flex items-center lg:px-5 shadow-md'>
+    <header className='sticky h-[55px] top-0 z-50 bg-white flex items-center lg:px-5 shadow-md'>
       {/* Left */}
       <div className='flex items-center'>
         <Image src={Logo} alt='Logo' width={40} height={40} layout='fixed' />
