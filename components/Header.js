@@ -49,10 +49,7 @@ const Header = () => {
         <BellIcon className='icon' />
         <ChevronDownIcon className='icon' />
 
-        <p className='whitespace-nowrap font-semibold cursor-pointer'>
-          {authUser?.displayName}
-        </p>
-        <div className='hidden md:inline-block'>
+        <div className='flex items-center ml-2'>
           <Image
             src={authUser?.photoURL ? authUser.photoURL : AvatarNoFound}
             width={40}

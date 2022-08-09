@@ -15,12 +15,12 @@ import {
 import useAuth from '../hooks/useAuth'
 import IconRow from './IconRow'
 
-const Sidebar = () => {
+const SidebarLeft = () => {
   const { authUser } = useAuth()
 
   return (
     <aside className='p-2 max-w-[600px] xl:min-w-[300px]'>
-      <div className='flex p-2'>
+      <div className='flex p-3 hover:bg-gray-200 rounded-lg'>
         <Image
           src={authUser?.photoURL ? authUser.photoURL : AvatarNoFound}
           width={30}
@@ -29,7 +29,7 @@ const Sidebar = () => {
           alt='Avatar de usuario'
           className='rounded-full cursor-pointer'
         />
-        <p className='font-semibold ml-2 cursor-pointer'>
+        <p className='hidden md:inline font-semibold ml-2 cursor-pointer'>
           {authUser?.displayName}
         </p>
       </div>
@@ -44,4 +44,4 @@ const Sidebar = () => {
   )
 }
 
-export default Sidebar
+export default SidebarLeft
