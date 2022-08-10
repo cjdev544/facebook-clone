@@ -20,7 +20,10 @@ const PostModal = ({ setShowModal }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('dataForm', text)
+    console.log(text)
+    // API call here
+    setText('')
+    setShowModal(false)
   }
 
   return (
@@ -44,7 +47,7 @@ const PostModal = ({ setShowModal }) => {
             <XIcon className='h-6 w-6 text-gray-500 cursor-pointer' />
           </div>
         </div>
-        <div className='flex p-3 hover:bg-gray-200 rounded-lg'>
+        <div className='flex p-3 rounded-lg'>
           <Image
             src={authUser?.photoURL ? authUser.photoURL : AvatarNoFound}
             width={40}
@@ -53,7 +56,7 @@ const PostModal = ({ setShowModal }) => {
             alt='Avatar de usuario'
             className='rounded-full cursor-pointer'
           />
-          <p className='hidden md:inline font-semibold ml-2 cursor-pointer'>
+          <p className='hidden md:inline font-semibold ml-2'>
             {authUser?.displayName}
           </p>
         </div>
