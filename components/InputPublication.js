@@ -1,12 +1,15 @@
+import { useState } from 'react'
 import Image from 'next/image'
 import { EmojiHappyIcon } from '@heroicons/react/outline'
 import { CameraIcon, VideoCameraIcon } from '@heroicons/react/solid'
 
 import useAuth from '../hooks/useAuth'
 import IconRow from '../components/IconRow'
+import PostModal from './modals/PostModal'
 
 const InputPublication = () => {
   const { authUser } = useAuth()
+  const [showModal, setShowModal] = useState(false)
 
   const name = authUser.displayName.split(' ')[0]
 
@@ -24,7 +27,10 @@ const InputPublication = () => {
               className='rounded-full cursor-pointer'
             />
           </div>
-          <div className='w-full ml-2 mb-3 items-center rounded-full bg-gray-100 p-2 cursor-pointer hover:bg-gray-200'>
+          <div
+            className='w-full ml-2 mb-3 items-center rounded-full bg-gray-100 p-2 cursor-pointer hover:bg-gray-200'
+            onClick={() => setShowModal(true)}
+          >
             <span className='ml-2 text-gray-500'>
               ¿Qué estás pensando?, {name}
             </span>
@@ -48,6 +54,7 @@ const InputPublication = () => {
           />
         </div>
       </div>
+      {showModal && <PostModal setShowModal={setShowModal} />}
     </div>
   )
 }

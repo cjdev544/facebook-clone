@@ -6,4 +6,32 @@
   .icon {
     @apply hidden xl:inline-flex p-2 h-10 w-10 bg-gray-200 rounded-full text-gray-700 cursor-pointer hover:bg-gray-300;
   }
+
+  .react-input-emoji--placeholder {
+    @apply text-2xl text-gray-500;
+  }
+}
+
+.white-modal {
+  background-color: #f3f3f3cc;
+}
+
+.react-input-emoji--container {
+  border: none !important;
+  font-size: 1.5rem !important;
+  height: 8rem !important;
+}
+
+.react-input-emoji--placeholder {
+  color: #6b7280 !important;
+  left: 0 !important;
+}
+
+.react-input-emoji--button {
+  align-self: flex-end !important;
+}
+
+.react-emoji-picker--wrapper {
+  top: 0 !important;
+  right: 10% !important;
 }
