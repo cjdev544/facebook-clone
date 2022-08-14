@@ -10,8 +10,15 @@ import PostModal from './modals/PostModal'
 const InputPublication = () => {
   const { authUser } = useAuth()
   const [showModal, setShowModal] = useState(false)
+  const [showDivImage, setShowDivImage] = useState(false)
 
   const name = authUser.displayName.split(' ')[0]
+
+  const openImageInput = () => {
+    setShowModal(true)
+    setShowDivImage(true)
+    console.log('mostrar imagen')
+  }
 
   return (
     <div className='bg-white shadow-md mt-4 rounded-xl border-1 border-gray-200'>
@@ -46,6 +53,7 @@ const InputPublication = () => {
             Icon={CameraIcon}
             title='Foto/video'
             color='text-green-500'
+            openImageInput={openImageInput}
           />
           <IconRow
             Icon={EmojiHappyIcon}
@@ -54,7 +62,13 @@ const InputPublication = () => {
           />
         </div>
       </div>
-      {showModal && <PostModal setShowModal={setShowModal} />}
+      {showModal && (
+        <PostModal
+          showDivImage={showDivImage}
+          setShowDivImage={setShowDivImage}
+          setShowModal={setShowModal}
+        />
+      )}
     </div>
   )
 }
