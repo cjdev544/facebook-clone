@@ -4,6 +4,7 @@ import {
   onSnapshot,
   collection,
   doc,
+  orderBy,
   getDoc,
   getDocs,
   setDoc,
@@ -19,6 +20,7 @@ import {
   ref,
   uploadBytes,
 } from 'firebase/storage'
+import { useCollection } from 'react-firebase-hooks/firestore'
 import { toast } from 'react-toastify'
 
 import { db, storage } from '../firebase/config'
@@ -65,7 +67,27 @@ const usePosts = () => {
     }
   }
 
+  const [realTimePosts, loading, error] = useCollection(
+    query(collection(db, 'posts'), orderBy('createdAt', 'desc'))
+  )
+
+  const allPosts = realTimePosts?.docs.map((post) => {
+    const data = post.data()
+    return {
+      id: post.id,
+      name: data.name,
+      email: data.email,
+      avatar: data.avatar,
+      message: data.message,
+      image: data.image,
+      createdAt: data.createdAt,
+    }
+  })
+
   return {
+    realTimePosts: allPosts,
+    loading,
+    error,
     createNewPost,
     deletePost,
   }

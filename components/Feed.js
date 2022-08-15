@@ -1,6 +1,7 @@
 import useHeightScreen from '../hooks/useHeightScreen'
 import Histories from './Histories'
 import InputPublication from './InputPublication'
+import Posts from './Posts'
 
 const Feed = () => {
   const { viewportHeight } = useHeightScreen()
@@ -12,6 +13,7 @@ const Feed = () => {
     >
       <Histories />
       <InputPublication />
+      <Posts />
       <p>klkljlhkjghgj</p>
       <p>klkljlhkjghgj</p>
       <p>klkljlhkjghgj</p>

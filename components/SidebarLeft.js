@@ -5,7 +5,6 @@ import {
   DesktopComputerIcon,
   UsersIcon,
 } from '@heroicons/react/solid'
-
 import {
   ChevronDownIcon,
   ShoppingBagIcon,
@@ -15,6 +14,7 @@ import {
 import useAuth from '../hooks/useAuth'
 import useHeightScreen from '../hooks/useHeightScreen'
 import IconRow from './IconRow'
+import AvatarNoFound from '../public/avatar.png'
 
 const SidebarLeft = () => {
   const { authUser } = useAuth()
