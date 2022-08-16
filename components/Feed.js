@@ -9,64 +9,11 @@ const Feed = () => {
   return (
     <section
       style={{ height: viewportHeight }}
-      className='overflow-y-scroll mt-4 mx-auto scrollbar-hide'
+      className='overflow-y-scroll pt-4 pb-5 h-screen mx-auto scrollbar-hide'
     >
       <Histories />
       <InputPublication />
       <Posts />
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
-      <p>klkljlhkjghgj</p>
     </section>
   )
 }

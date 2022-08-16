@@ -5,7 +5,7 @@ const useHeightScreen = () => {
 
   useEffect(() => {
     if (window) {
-      const height = window.innerHeight - 56 - 17
+      const height = window.innerHeight - 56
 
       setViewportHeight(height)
     }

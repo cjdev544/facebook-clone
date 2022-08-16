@@ -1,25 +1,15 @@
 import {
   addDoc,
-  getFirestore,
-  onSnapshot,
   collection,
   doc,
   orderBy,
-  getDoc,
-  getDocs,
   setDoc,
   query,
-  updateDoc,
   deleteDoc,
   serverTimestamp,
+  updateDoc,
 } from 'firebase/firestore'
-import {
-  getStorage,
-  getDownloadURL,
-  deleteObject,
-  ref,
-  uploadBytes,
-} from 'firebase/storage'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { useCollection } from 'react-firebase-hooks/firestore'
 import { toast } from 'react-toastify'
 
@@ -46,6 +36,8 @@ const usePosts = () => {
     try {
       const docRef = await addDoc(collection(db, 'posts'), {
         ...dataPost,
+        likes: [],
+        comments: [],
         createdAt: serverTimestamp(),
       })
 
@@ -81,8 +73,32 @@ const usePosts = () => {
       message: data.message,
       image: data.image,
       createdAt: data.createdAt,
+      likes: data.likes || [],
+      comments: data.comments || [],
     }
   })
+
+  const likeAPost = async (post, authUserId, likeOrNoLike) => {
+    let setPost
+
+    if (likeOrNoLike !== 1) {
+      setPost = {
+        ...post,
+        likes: post?.likes ? [...post.likes, authUserId] : [authUserId],
+      }
+    } else {
+      setPost = {
+        ...post,
+        likes: post?.likes.filter((like) => like !== authUserId),
+      }
+    }
+    const postRef = doc(db, 'posts', post.id)
+    try {
+      await updateDoc(postRef, setPost)
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   return {
     realTimePosts: allPosts,
@@ -90,6 +106,7 @@ const usePosts = () => {
     error,
     createNewPost,
     deletePost,
+    likeAPost,
   }
 }
 

@@ -14,7 +14,7 @@ import {
 import useAuth from '../hooks/useAuth'
 import useHeightScreen from '../hooks/useHeightScreen'
 import IconRow from './IconRow'
-import AvatarNoFound from '../public/avatar.png'
+import AvatarName from './AvatarName'
 
 const SidebarLeft = () => {
   const { authUser } = useAuth()
@@ -25,19 +25,7 @@ const SidebarLeft = () => {
       style={{ height: viewportHeight }}
       className='overflow-y-scroll p-2 max-w-[600px] xl:min-w-[300px] scrollbar-hide'
     >
-      <div className='flex p-3 hover:bg-gray-200 rounded-lg'>
-        <Image
-          src={authUser?.photoURL ? authUser.photoURL : AvatarNoFound}
-          width={30}
-          height={30}
-          layout='fixed'
-          alt='Avatar de usuario'
-          className='rounded-full cursor-pointer'
-        />
-        <p className='hidden md:inline font-semibold ml-2 cursor-pointer'>
-          {authUser?.displayName}
-        </p>
-      </div>
+      <AvatarName user={authUser} />
       <IconRow Icon={UsersIcon} title='Amigos' />
       <IconRow Icon={UserGroupIcon} title='Grupos' />
       <IconRow Icon={ShoppingBagIcon} title='Marketplace' />

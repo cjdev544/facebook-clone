@@ -5,10 +5,19 @@ import {
   ThumbUpIcon as ThumbUpIconOutline,
 } from '@heroicons/react/outline'
 
+import useAuth from '../hooks/useAuth'
+import usePosts from '../hooks/usePosts'
 import AvatarNoFound from '../public/avatar.png'
 
 const Post = ({ post }) => {
   const { name, email, avatar, message, image, createdAt } = post
+
+  const { authUser } = useAuth()
+  const { likeAPost } = usePosts()
+
+  const likes = post?.likes
+  const countLikes = likes?.length
+  const isUserLikePost = likes?.filter((like) => like === authUser.uid)
 
   return (
     <article className='p-3 pb-0 bg-white mt-5 rounded-xl shadow-md'>
@@ -49,14 +58,29 @@ const Post = ({ post }) => {
             <div className='flex mr-2 p-1 items-center justify-center bg-blue-500 rounded-full text-center'>
               <ThumbUpIcon className='h-3 text-center text-white' />
             </div>
-            <p className='text-gray-400'>235</p>
+            <p className='text-gray-400'>{countLikes || ''}</p>
           </div>
           <p className='text-gray-400'>45 comentarios</p>
         </div>
         <div className='flex px-3 py-1 items-center justify-between'>
-          <div className='flex items-center hover:bg-gray-100 py-1 px-4 cursor-pointer'>
-            <ThumbUpIconOutline className='h-5 mr-1 text-gray-500' />
-            <p className='text-gray-500 font-semibold'>Me gusta</p>
+          <div
+            onClick={() =>
+              likeAPost(post, authUser.uid, isUserLikePost?.length)
+            }
+            className='flex items-center hover:bg-gray-100 py-1 px-4 cursor-pointer'
+          >
+            <ThumbUpIconOutline
+              className={`h-5 mr-1 ${
+                isUserLikePost?.length !== 1 ? 'text-gray-500' : 'text-blue-500'
+              }`}
+            />
+            <p
+              className={`font-semibold ${
+                isUserLikePost?.length !== 1 ? 'text-gray-500' : 'text-blue-500'
+              }`}
+            >
+              Me gusta
+            </p>
           </div>
           <div className='flex items-center hover:bg-gray-100 py-1 px-4 cursor-pointer'>
             <ChatAltIcon className='h-4 mr-1 text-gray-500' />
