@@ -3,7 +3,7 @@ import { UserAddIcon, UserRemoveIcon } from '@heroicons/react/solid'
 
 import FotoPerfil from '../public/viuda-history.jpg'
 
-const HeaderProfile = () => {
+const HeaderProfile = ({ showPhotosGrid, setShowPhotosGrid }) => {
   return (
     <div className='bg-white'>
       <div className='max-w-4xl mx-auto'>
@@ -44,10 +44,24 @@ const HeaderProfile = () => {
       </div>
       <div className='max-w-4xl mx-auto pt-4'>
         <div className='flex items-center mx-10 space-x-10'>
-          <p className='pb-4 px-4 border-b-4 border-blue-500 font-semibold text-blue-500 cursor-pointer'>
+          <p
+            onClick={() => setShowPhotosGrid(false)}
+            className={`pb-4 px-4 font-semibold cursor-pointer ${
+              !showPhotosGrid
+                ? 'border-b-4 border-blue-500 text-blue-500'
+                : 'text-gray-500'
+            }`}
+          >
             Publicaciones
           </p>
-          <p className='pb-4 font-semibold text-gray-500 cursor-pointer'>
+          <p
+            onClick={() => setShowPhotosGrid(true)}
+            className={`pb-4 px-4 font-semibold cursor-pointer ${
+              showPhotosGrid
+                ? 'border-b-4 border-blue-500 text-blue-500'
+                : 'text-gray-500'
+            }`}
+          >
             Fotos
           </p>
         </div>

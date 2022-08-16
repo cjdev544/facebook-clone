@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import ClipLoader from 'react-spinners/ClipLoader'
@@ -9,13 +10,15 @@ import AuthForm from '../components/forms/AuthForm'
 import HeaderProfile from '../components/HeaderProfile'
 import ProfileLeft from '../components/ProfileLeft'
 import ProfileRight from '../components/ProfileRight'
+import Photos from '../components/Photos'
 
 const User = () => {
   const { query } = useRouter()
   const { user } = query
-
   const { authUser } = useAuth()
   useUser()
+
+  const [showPhotosGrid, setShowPhotosGrid] = useState(false)
 
   const override = {
     display: 'block',
@@ -44,12 +47,22 @@ const User = () => {
         <Header />
         <main className='pb-10 bg-gray-100'>
           <div className='max-w-7xl mx-auto'>
-            <HeaderProfile />
+            <HeaderProfile
+              showPhotosGrid={showPhotosGrid}
+              setShowPhotosGrid={setShowPhotosGrid}
+            />
             <div className='max-w-4xl mx-auto'>
-              <div className='flex flex-col sm:flex-row mx-2 sm:mx-10'>
-                <ProfileLeft />
-                <ProfileRight />
-              </div>
+              {!showPhotosGrid ? (
+                <div className='flex flex-col sm:flex-row mx-2 sm:mx-10'>
+                  <ProfileLeft setShowPhotosGrid={setShowPhotosGrid} />
+                  <ProfileRight />
+                </div>
+              ) : (
+                <div className='mx-2 sm:mx-10 bg-white p-3 my-4 shadow-md rounded-lg'>
+                  <h3 className='font-bold text-xl'>Fotos</h3>
+                  <Photos />
+                </div>
+              )}
             </div>
           </div>
         </main>

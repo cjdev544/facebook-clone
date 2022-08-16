@@ -8,7 +8,7 @@ import {
 
 import Foto from '../public/bruji-history.jpg'
 
-const ProfileLeft = () => {
+const ProfileLeft = ({ setShowPhotosGrid }) => {
   return (
     <aside className='sm:sticky top-[40px] sm:self-start sm:flex flex-col sm:w-2/5 mt-5 overflow-y-scroll scrollbar-hide'>
       <div className='p-3 bg-white rounded-xl shadow-md'>
@@ -42,7 +42,12 @@ const ProfileLeft = () => {
       <div className='mt-5 p-3 bg-white rounded-xl shadow-md'>
         <div className='flex items-center justify-between'>
           <h3 className='font-bold text-xl'>Fotos</h3>
-          <p className='text-blue-500 cursor-pointer'>Ver todas las fotos</p>
+          <p
+            onClick={() => setShowPhotosGrid(true)}
+            className='text-blue-500 cursor-pointer'
+          >
+            Ver todas las fotos
+          </p>
         </div>
         <div className='grid grid-rows-3 grid-flow-col gap-2 mt-4 rounded-lg overflow-hidden'>
           <Image
