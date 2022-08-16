@@ -2,7 +2,6 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import ClipLoader from 'react-spinners/ClipLoader'
 
-import useHeightScreen from '../hooks/useHeightScreen'
 import useAuth from '../hooks/useAuth'
 import useUser from '../hooks/useUser'
 import Header from '../components/Header'
@@ -14,9 +13,7 @@ import ProfileRight from '../components/ProfileRight'
 const User = () => {
   const { query } = useRouter()
   const { user } = query
-  console.log(user)
 
-  const { viewportHeight } = useHeightScreen()
   const { authUser } = useAuth()
   useUser()
 
@@ -45,12 +42,14 @@ const User = () => {
           <link rel='icon' href='/favicon.ico' />
         </Head>
         <Header />
-        <main style={{ height: viewportHeight }} className='bg-gray-100'>
-          <HeaderProfile />
-          <div className='max-w-4xl mx-auto bg-red-500'>
-            <div className='flex mx-10'>
-              <ProfileLeft />
-              <ProfileRight />
+        <main className='pb-10 bg-gray-100'>
+          <div className='max-w-7xl mx-auto'>
+            <HeaderProfile />
+            <div className='max-w-4xl mx-auto'>
+              <div className='flex flex-col sm:flex-row mx-2 sm:mx-10'>
+                <ProfileLeft />
+                <ProfileRight />
+              </div>
             </div>
           </div>
         </main>

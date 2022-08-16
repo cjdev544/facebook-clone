@@ -7,7 +7,7 @@ import InputEmoji from 'react-input-emoji'
 import useAuth from '../../hooks/useAuth'
 import usePosts from '../../hooks/usePosts'
 
-const PostModal = ({ showDivImage, setShowModal, setShowDivImage }) => {
+const PostModalProfile = ({ showDivImage, setShowModal, setShowDivImage }) => {
   const { authUser } = useAuth()
   const { createNewPost } = usePosts()
   const [text, setText] = useState('')
@@ -116,7 +116,7 @@ const PostModal = ({ showDivImage, setShowModal, setShowDivImage }) => {
             value={text}
             onChange={setText}
             cleanOnEnter
-            placeholder={`¿Qué estás pensando?, ${name}`}
+            placeholder='Escribe algo a User...'
             height='20'
             theme='light'
           />
@@ -166,4 +166,4 @@ const PostModal = ({ showDivImage, setShowModal, setShowDivImage }) => {
   )
 }
 
-export default PostModal
+export default PostModalProfile

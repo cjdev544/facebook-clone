@@ -32,9 +32,7 @@ const Post = ({ post }) => {
             className='rounded-full cursor-pointer'
           />
           <div>
-            <p className='hidden md:inline font-semibold ml-2 cursor-pointer'>
-              {name}
-            </p>
+            <p className='font-semibold ml-2 cursor-pointer'>{name}</p>
             <p className='text-xs text-gray-400 ml-3'>
               {new Date(createdAt?.toDate()).toLocaleString()}
             </p>
