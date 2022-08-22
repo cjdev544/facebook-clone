@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { ThumbUpIcon } from '@heroicons/react/solid'
 import {
   ChatAltIcon,
@@ -10,7 +11,7 @@ import usePosts from '../hooks/usePosts'
 import AvatarNoFound from '../public/avatar.png'
 
 const Post = ({ post }) => {
-  const { name, email, avatar, message, image, createdAt } = post
+  const { user, name, avatar, message, image, createdAt } = post
 
   const { authUser } = useAuth()
   const { likeAPost } = usePosts()
@@ -22,17 +23,25 @@ const Post = ({ post }) => {
   return (
     <article className='p-3 pb-0 bg-white mt-5 rounded-xl shadow-md'>
       <header>
-        <div className='flex hover:bg-gray-200 rounded-lg'>
-          <Image
-            src={avatar || AvatarNoFound}
-            width={40}
-            height={40}
-            layout='fixed'
-            alt='Avatar de usuario que creo el post'
-            className='rounded-full cursor-pointer'
-          />
+        <div className='flex rounded-lg'>
+          <Link href={`/${user}`}>
+            <a>
+              <Image
+                src={avatar || AvatarNoFound}
+                width={40}
+                height={40}
+                layout='fixed'
+                alt='Avatar de usuario que creo el post'
+                className='rounded-full cursor-pointer'
+              />
+            </a>
+          </Link>
           <div>
-            <p className='font-semibold ml-2 cursor-pointer'>{name}</p>
+            <Link href={`/${user}`}>
+              <a>
+                <p className='font-semibold ml-2 cursor-pointer'>{name}</p>
+              </a>
+            </Link>
             <p className='text-xs text-gray-400 ml-3'>
               {new Date(createdAt?.toDate()).toLocaleString()}
             </p>
@@ -41,14 +50,18 @@ const Post = ({ post }) => {
       </header>
       {message && <p className='my-2'>{message}</p>}
       {image && (
-        <div className='relative h-56 md:h-96 bg-white'>
-          <Image
-            src={image}
-            objectFit='contain'
-            alt='Imagen del post'
-            layout='fill'
-          />
-        </div>
+        <Link href={`${post.user}/${post.id}`}>
+          <a>
+            <div className='relative h-56 md:h-96 bg-white'>
+              <Image
+                src={image}
+                objectFit='contain'
+                alt='Imagen del post'
+                layout='fill'
+              />
+            </div>
+          </a>
+        </Link>
       )}
       <footer>
         <div className='flex items-center justify-between py-3 border-gray-200 border-b-2'>

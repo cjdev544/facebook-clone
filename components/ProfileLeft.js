@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import {
   AcademicCapIcon,
@@ -6,9 +7,25 @@ import {
   LocationMarkerIcon,
 } from '@heroicons/react/solid'
 
-import Foto from '../public/bruji-history.jpg'
+import usePosts from '../hooks/usePosts'
 
-const ProfileLeft = ({ setShowPhotosGrid }) => {
+const ProfileLeft = ({ userPage, setShowPhotosGrid }) => {
+  const { realTimePosts, loading } = usePosts()
+  const [posts, setPosts] = useState()
+
+  useEffect(() => {
+    const photoUser = realTimePosts?.filter(
+      (post) => post.user === userPage.uid
+    )
+    setPosts(photoUser)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading])
+
+  if (loading) return null
+
+  const postsWithImage = posts?.filter((post) => post?.image)
+
   return (
     <aside className='sm:sticky top-[40px] sm:self-start sm:flex flex-col sm:w-2/5 mt-5 overflow-y-scroll scrollbar-hide'>
       <div className='p-3 bg-white rounded-xl shadow-md'>
@@ -50,77 +67,20 @@ const ProfileLeft = ({ setShowPhotosGrid }) => {
           </p>
         </div>
         <div className='grid grid-rows-3 grid-flow-col gap-2 mt-4 rounded-lg overflow-hidden'>
-          <Image
-            src={Foto}
-            width={100}
-            height={100}
-            objectFit='cover'
-            alt='Foto'
-          />
-
-          <Image
-            src={Foto}
-            width={100}
-            height={100}
-            objectFit='cover'
-            alt='Foto'
-          />
-
-          <Image
-            src={Foto}
-            width={100}
-            height={100}
-            objectFit='cover'
-            alt='Foto'
-          />
-
-          <Image
-            src={Foto}
-            width={100}
-            height={100}
-            objectFit='cover'
-            alt='Foto'
-          />
-
-          <Image
-            src={Foto}
-            width={100}
-            height={100}
-            objectFit='cover'
-            alt='Foto'
-          />
-
-          <Image
-            src={Foto}
-            width={100}
-            height={100}
-            objectFit='cover'
-            alt='Foto'
-          />
-
-          <Image
-            src={Foto}
-            width={100}
-            height={100}
-            objectFit='cover'
-            alt='Foto'
-          />
-
-          <Image
-            src={Foto}
-            width={100}
-            height={100}
-            objectFit='cover'
-            alt='Foto'
-          />
-
-          <Image
-            src={Foto}
-            width={100}
-            height={100}
-            objectFit='cover'
-            alt='Foto'
-          />
+          {postsWithImage?.map((post, idx) => {
+            if (idx < 9) {
+              return (
+                <Image
+                  key={post.id}
+                  src={post.image}
+                  width={100}
+                  height={100}
+                  objectFit='cover'
+                  alt='Foto'
+                />
+              )
+            }
+          })}
         </div>
       </div>
     </aside>

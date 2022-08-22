@@ -36,7 +36,7 @@ export default function Home() {
     return (
       <div>
         <Head>
-          <title>Facebok Clone</title>
+          <title>Facebook Clone</title>
           <meta name='description' content='App clon de facebook' />
           <link rel='icon' href='/favicon.ico' />
         </Head>

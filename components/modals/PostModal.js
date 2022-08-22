@@ -66,7 +66,8 @@ const PostModal = ({ showDivImage, setShowModal, setShowDivImage }) => {
     console.log(text)
     // API call here
     const dataPost = {
-      message: text,
+      user: authUser?.uid,
+      message: text || '',
       name: authUser?.displayName,
       email: authUser?.email,
       avatar: authUser?.photoURL,

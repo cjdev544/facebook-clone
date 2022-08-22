@@ -1,11 +1,11 @@
 import InputProfileMessage from './InputProfileMessage'
 import Posts from './Posts'
 
-const ProfileRight = () => {
+const ProfileRight = ({ userPage }) => {
   return (
     <div className='sm:w-3/5 mt-5 sm:ml-5'>
-      <InputProfileMessage />
-      <Posts />
+      <InputProfileMessage userPage={userPage} />
+      <Posts userPage={userPage} />
     </div>
   )
 }

@@ -17,7 +17,6 @@ const InputPublication = () => {
   const openImageInput = () => {
     setShowModal(true)
     setShowDivImage(true)
-    console.log('mostrar imagen')
   }
 
   return (

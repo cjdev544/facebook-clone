@@ -7,7 +7,12 @@ import InputEmoji from 'react-input-emoji'
 import useAuth from '../../hooks/useAuth'
 import usePosts from '../../hooks/usePosts'
 
-const PostModalProfile = ({ showDivImage, setShowModal, setShowDivImage }) => {
+const PostModalProfile = ({
+  isAuthUser,
+  showDivImage,
+  setShowModal,
+  setShowDivImage,
+}) => {
   const { authUser } = useAuth()
   const { createNewPost } = usePosts()
   const [text, setText] = useState('')
@@ -65,14 +70,19 @@ const PostModalProfile = ({ showDivImage, setShowModal, setShowDivImage }) => {
     e.preventDefault()
     console.log(text)
     // API call here
-    const dataPost = {
-      message: text,
-      name: authUser?.displayName,
-      email: authUser?.email,
-      avatar: authUser?.photoURL,
-      image: !file && null,
+    if (isAuthUser) {
+      const dataPost = {
+        user: authUser.uid,
+        message: text,
+        name: authUser?.displayName,
+        email: authUser?.email,
+        avatar: authUser?.photoURL,
+        image: !file && null,
+      }
+      await createNewPost(dataPost, file)
+    } else {
+      console.log('mandar mensaje a usuario')
     }
-    await createNewPost(dataPost, file)
     setText('')
     setShowModal(false)
   }

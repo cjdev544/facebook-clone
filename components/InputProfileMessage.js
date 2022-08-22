@@ -1,22 +1,27 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { CameraIcon } from '@heroicons/react/solid'
 
 import useAuth from '../hooks/useAuth'
-import IconRow from '../components/IconRow'
 import PostModalProfile from './modals/PostModalProfile'
 
-const InputProfileMessage = () => {
+const InputProfileMessage = ({ userPage }) => {
   const { authUser } = useAuth()
   const [showModal, setShowModal] = useState(false)
   const [showDivImage, setShowDivImage] = useState(false)
+  const [isAuthUser, setIsAuthUser] = useState(false)
 
-  const name = authUser.displayName.split(' ')[0]
+  const name = userPage.displayName.split(' ')[0]
+
+  useEffect(() => {
+    if (userPage?.uid === authUser.uid) {
+      setIsAuthUser(true)
+    }
+  }, [userPage, authUser])
 
   const openImageInput = () => {
     setShowModal(true)
     setShowDivImage(true)
-    console.log('mostrar imagen')
   }
 
   return (
@@ -37,7 +42,13 @@ const InputProfileMessage = () => {
             className='w-full ml-2 mb-3 items-center rounded-full bg-gray-100 p-2 cursor-pointer hover:bg-gray-200'
             onClick={() => setShowModal(true)}
           >
-            <span className='ml-2 text-gray-500'>Escribe algo a User</span>
+            {!isAuthUser ? (
+              <span className='ml-2 text-gray-500'>Escribe algo a {name}</span>
+            ) : (
+              <span className='ml-2 text-gray-500'>
+                ¿Qué estás pensando?, {name}
+              </span>
+            )}
           </div>
         </div>
         <div className='mt-2'>
@@ -52,6 +63,7 @@ const InputProfileMessage = () => {
       </div>
       {showModal && (
         <PostModalProfile
+          isAuthUser={isAuthUser}
           showDivImage={showDivImage}
           setShowDivImage={setShowDivImage}
           setShowModal={setShowModal}

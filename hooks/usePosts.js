@@ -67,6 +67,7 @@ const usePosts = () => {
     const data = post.data()
     return {
       id: post.id,
+      user: data.user,
       name: data.name,
       email: data.email,
       avatar: data.avatar,

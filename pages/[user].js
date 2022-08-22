@@ -1,6 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import ClipLoader from 'react-spinners/ClipLoader'
 
 import useAuth from '../hooks/useAuth'
@@ -13,12 +12,22 @@ import ProfileRight from '../components/ProfileRight'
 import Photos from '../components/Photos'
 
 const User = () => {
-  const { query } = useRouter()
-  const { user } = query
   const { authUser } = useAuth()
-  useUser()
+  const { getOneUser } = useUser()
+  const [userPage, setUserPage] = useState()
 
   const [showPhotosGrid, setShowPhotosGrid] = useState(false)
+
+  useEffect(() => {
+    getOneUser()
+      .then((res) => {
+        setUserPage(res.userPage)
+      })
+      .catch((err) => {
+        setUserPage(err.userPage)
+      })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const override = {
     display: 'block',
@@ -36,11 +45,14 @@ const User = () => {
       />
     )
 
+  if (userPage === null) return 'Usuario no encontrado'
+  if (!userPage) return null
+
   if (authUser?.uid) {
     return (
       <div>
         <Head>
-          <title>Mi nombre | Facebok Clone</title>
+          <title>{userPage.displayName} | Facebook Clone</title>
           <meta name='description' content='App clon de facebook' />
           <link rel='icon' href='/favicon.ico' />
         </Head>
@@ -48,19 +60,24 @@ const User = () => {
         <main className='pb-10 bg-gray-100'>
           <div className='max-w-7xl mx-auto'>
             <HeaderProfile
+              authUser={authUser}
+              userPage={userPage}
               showPhotosGrid={showPhotosGrid}
               setShowPhotosGrid={setShowPhotosGrid}
             />
             <div className='max-w-4xl mx-auto'>
               {!showPhotosGrid ? (
                 <div className='flex flex-col sm:flex-row mx-2 sm:mx-10'>
-                  <ProfileLeft setShowPhotosGrid={setShowPhotosGrid} />
-                  <ProfileRight />
+                  <ProfileLeft
+                    userPage={userPage}
+                    setShowPhotosGrid={setShowPhotosGrid}
+                  />
+                  <ProfileRight userPage={userPage} />
                 </div>
               ) : (
                 <div className='mx-2 sm:mx-10 bg-white p-3 my-4 shadow-md rounded-lg'>
                   <h3 className='font-bold text-xl'>Fotos</h3>
-                  <Photos />
+                  <Photos userPage={userPage} />
                 </div>
               )}
             </div>

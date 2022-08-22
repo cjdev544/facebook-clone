@@ -3,7 +3,7 @@ import ClipLoader from 'react-spinners/ClipLoader'
 import usePosts from '../hooks/usePosts'
 import Post from './Post'
 
-const Posts = () => {
+const Posts = ({ userPage = null }) => {
   const { realTimePosts, loading, error } = usePosts()
 
   const override = {
@@ -31,9 +31,15 @@ const Posts = () => {
 
   return (
     <div>
-      {realTimePosts?.map((post) => (
-        <Post key={post.id} post={post} />
-      ))}
+      {realTimePosts?.map((post) => {
+        if (userPage) {
+          if (post.user === userPage.uid) {
+            return <Post key={post.id} post={post} />
+          }
+        } else {
+          return <Post key={post.id} post={post} />
+        }
+      })}
     </div>
   )
 }
