@@ -4,6 +4,7 @@ import { CameraIcon } from '@heroicons/react/solid'
 
 import useAuth from '../hooks/useAuth'
 import PostModalProfile from './modals/PostModalProfile'
+import AvatarNoFound from '../public/avatar.png'
 
 const InputProfileMessage = ({ userPage }) => {
   const { authUser } = useAuth()

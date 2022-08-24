@@ -6,6 +6,7 @@ import { CameraIcon, VideoCameraIcon } from '@heroicons/react/solid'
 import useAuth from '../hooks/useAuth'
 import IconRow from '../components/IconRow'
 import PostModal from './modals/PostModal'
+import AvatarNoFound from '../public/avatar.png'
 
 const InputPublication = () => {
   const { authUser } = useAuth()

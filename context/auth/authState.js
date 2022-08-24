@@ -5,7 +5,6 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
-  updateProfile,
 } from 'firebase/auth'
 import { toast } from 'react-toastify'
 
@@ -14,16 +13,21 @@ import AuthContext from './AuthContext'
 
 const AuthState = ({ children }) => {
   const [authUser, setAuthUser] = useState(undefined)
+  const [displayName, setDisplayName] = useState('')
 
   useEffect(() => {
     listenAuthChange()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [displayName])
 
   const listenAuthChange = () => {
     onAuthStateChanged(auth, (credentials) => {
       if (credentials?.uid) {
-        setAuthUser(credentials.providerData[0])
+        setAuthUser({
+          ...credentials.providerData[0],
+          uid: credentials.uid,
+          displayName,
+        })
       } else {
         setAuthUser(null)
       }
@@ -41,7 +45,7 @@ const AuthState = ({ children }) => {
     }
   }
 
-  const registerWhitEmailAndPassword = (
+  const registerWhitEmailAndPassword = async (
     name,
     lastname,
     email,
@@ -49,16 +53,14 @@ const AuthState = ({ children }) => {
     setLoading
   ) => {
     setLoading(true)
-
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(async ({ user }) => {
-        await updateProfile(user, { displayName: `${name} ${lastname}` })
-      })
-      .catch((err) => {
-        console.log(err)
-        toast.error('Error al registrar usuario')
-        setLoading(false)
-      })
+    try {
+      setDisplayName(`${name} ${lastname}`)
+      await createUserWithEmailAndPassword(auth, email, password)
+    } catch (err) {
+      console.log(err)
+      toast.error('Error al registrar usuario')
+      setLoading(false)
+    }
   }
 
   const loginWhitEmailAndPassword = async (email, password, setLoading) => {
