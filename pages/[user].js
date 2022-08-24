@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import Head from 'next/head'
 import ClipLoader from 'react-spinners/ClipLoader'
 
@@ -15,11 +16,21 @@ const User = () => {
   const { authUser } = useAuth()
   const { getOneUser } = useUser()
   const [userPage, setUserPage] = useState()
+  const [formLogin, setFormLogin] = useState(true)
+  const { query } = useRouter()
+  const { user } = query
 
   const [showPhotosGrid, setShowPhotosGrid] = useState(false)
+  const [isAuthProfile, setIsAuthProfile] = useState(false)
 
   useEffect(() => {
-    getOneUser()
+    if (authUser && userPage) {
+      if (authUser.uid === userPage.uid) setIsAuthProfile(true)
+    }
+  }, [authUser, userPage])
+
+  useEffect(() => {
+    getOneUser(user)
       .then((res) => {
         setUserPage(res.userPage)
       })
@@ -27,7 +38,7 @@ const User = () => {
         setUserPage(err.userPage)
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [user])
 
   const override = {
     display: 'block',
@@ -62,6 +73,7 @@ const User = () => {
             <HeaderProfile
               authUser={authUser}
               userPage={userPage}
+              isAuthProfile={isAuthProfile}
               showPhotosGrid={showPhotosGrid}
               setShowPhotosGrid={setShowPhotosGrid}
             />

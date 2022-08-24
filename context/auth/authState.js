@@ -43,7 +43,6 @@ const AuthState = ({ children }) => {
     const refUser = doc(db, 'users', userId)
     const userExist = await getDoc(refUser)
     if (userExist?.data()) {
-      console.log('Entra', userExist.data())
       setAuthUser(userExist.data())
     } else {
       createAuthUser(refUser)

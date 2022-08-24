@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -17,6 +18,7 @@ import usePosts from '../../hooks/usePosts'
 import useHeightScreen from '../../hooks/useHeightScreen'
 import Logo from '../../public/logo.png'
 import AvatarNoFound from '../../public/avatar.png'
+import AuthForm from '../../components/forms/LoginForm'
 
 const Photo = () => {
   const { query } = useRouter()
@@ -25,12 +27,17 @@ const Photo = () => {
   const { authUser } = useAuth()
   const { completeHeight } = useHeightScreen()
 
-  if (loading) return null
+  const [formLogin, setFormLogin] = useState(true)
+
+  if (loading)
+    return <AuthForm formLogin={formLogin} setFormLogin={setFormLogin} />
 
   const post = realTimePosts.filter((post) => post?.id === photo)[0]
   const likes = post?.likes
   const countLikes = likes?.length
   const isUserLikePost = likes?.filter((like) => like === authUser.uid)
+
+  if (!authUser?.uid) return
 
   return (
     <div className='flex max-h-screen overflow-hidden'>
