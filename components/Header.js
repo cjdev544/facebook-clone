@@ -15,7 +15,7 @@ import HeaderIcon from './HeaderIcon'
 import AvatarNoFound from '../public/avatar.png'
 
 const Header = () => {
-  const { authUser } = useAuth()
+  const { authUser, logout } = useAuth()
 
   return (
     <header className='sticky top-0 z-40 bg-white shadow-md'>
@@ -60,7 +60,7 @@ const Header = () => {
           <ChatIcon className='icon' />
           <BellIcon className='icon' />
 
-          <div className='flex items-center ml-2'>
+          <div onClick={logout} className='flex items-center ml-2'>
             <Image
               src={authUser?.photoURL ? authUser.photoURL : AvatarNoFound}
               width={40}
