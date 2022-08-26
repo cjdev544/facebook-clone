@@ -1,6 +1,9 @@
+import { useRef } from 'react'
 import Image from 'next/image'
 import { CameraIcon } from '@heroicons/react/solid'
+import { toast } from 'react-toastify'
 
+import useUser from '../hooks/useUser'
 import HeaderProfileButton from './HeaderProfileButton'
 
 const HeaderProfile = ({
@@ -10,11 +13,34 @@ const HeaderProfile = ({
   showPhotosGrid,
   setShowPhotosGrid,
 }) => {
+  const inputProfileFile = useRef()
+  const inputAvatarFile = useRef()
+
+  const { updateImageUser } = useUser()
+
+  const onChangeFile = (e, type) => {
+    if (
+      e.target.files[0]?.type !== 'image/jpeg' &&
+      e.target.files[0]?.type !== 'image/png'
+    ) {
+      toast.warning('Tipo de archivo no soportado')
+      return
+    }
+    if (type === 'profile') {
+      updateImageUser(authUser.uid, e.target.files[0], 'profile')
+    } else {
+      updateImageUser(authUser.uid, e.target.files[0], 'avatar')
+    }
+  }
+
+  const profileClick = () => inputProfileFile.current.click()
+  const avatarClick = () => inputAvatarFile.current.click()
+
   return (
     <div className='bg-white'>
       <div className='relative max-w-4xl mx-auto'>
         <Image
-          src={userPage.image}
+          src={userPage.uid === authUser.uid ? authUser.image : userPage.image}
           alt='foto de portada'
           height={340}
           width={940}
@@ -23,10 +49,20 @@ const HeaderProfile = ({
         />
         {isAuthProfile && (
           <div className='absolute bottom-10 right-10'>
-            <button className='bg-gray-200 flex items-center px-4 py-1 rounded-md font-2xl hover:bg-gray-300 mr-2 md:mb-0 mb-2'>
+            <button
+              onClick={profileClick}
+              className='bg-gray-200 flex items-center px-4 py-1 rounded-md font-2xl hover:bg-gray-300 mr-2 md:mb-0 mb-2'
+            >
               <CameraIcon className='h-5 w-5 mr-2' />
               <p className='font-bold'>Ediar foto de perfil</p>
             </button>
+
+            <input
+              ref={inputProfileFile}
+              onChange={(e) => onChangeFile(e, 'profile')}
+              type='file'
+              style={{ display: 'none' }}
+            />
           </div>
         )}
       </div>
@@ -34,15 +70,28 @@ const HeaderProfile = ({
         <div className='absolute top-[-6rem] md:left-10 rounded-full border-4 border-white overflow-hidden h-[170px] w-[170px]'>
           <div className='relative'>
             <Image
-              src={userPage.photoURL}
+              src={
+                userPage.uid === authUser.uid
+                  ? authUser.photoURL
+                  : userPage.photoURL
+              }
               alt='foto de portada'
               height={170}
               width={170}
               objectFit='cover'
             />
             {isAuthProfile && (
-              <div className='absolute bottom-7 right-5 h-8 w-8 flex items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300 cursor-pointer'>
+              <div
+                onClick={avatarClick}
+                className='absolute bottom-7 right-5 h-8 w-8 flex items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300 cursor-pointer'
+              >
                 <CameraIcon className='h-6 w-6' />
+                <input
+                  ref={inputAvatarFile}
+                  onChange={(e) => onChangeFile(e, 'avatar')}
+                  type='file'
+                  style={{ display: 'none' }}
+                />
               </div>
             )}
           </div>

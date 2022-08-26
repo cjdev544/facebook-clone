@@ -129,6 +129,7 @@ const AuthState = ({ children }) => {
     <AuthContext.Provider
       value={{
         authUser,
+        setAuthUser,
         initWhitGmail,
         registerWhitEmailAndPassword,
         loginWhitEmailAndPassword,
