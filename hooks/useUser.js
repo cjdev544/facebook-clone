@@ -1,11 +1,56 @@
-import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { useEffect, useState } from 'react'
+import { doc, collection, getDoc, updateDoc, query } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import { useCollection } from 'react-firebase-hooks/firestore'
 
 import { db, storage } from '../firebase/config'
 import useAuth from './useAuth'
 
 const useUser = () => {
   const { authUser, updateUser } = useAuth()
+  const [friends, setFriends] = useState([])
+  const [allFriends, setAllFriends] = useState([])
+  const [noFriends, setNoFriends] = useState([])
+
+  const [realTimeUsers] = useCollection(query(collection(db, 'users')))
+
+  useEffect(() => {
+    if (realTimeUsers?.docs) {
+      const allUsers = realTimeUsers?.docs.map((user) => {
+        const data = user.data()
+
+        return {
+          uid: data.uid,
+          displayName: data.displayName,
+          photoURL: data.photoURL,
+        }
+      })
+
+      const users = allUsers?.filter((user) => user?.uid !== authUser?.uid)
+
+      const friends = []
+      const noFriends = []
+      const allFriends = []
+      users?.map((user) => {
+        const isFriend = authUser.friends.find((userId) => {
+          if (userId === user?.uid) return true
+        })
+
+        if (isFriend) {
+          if (friends?.length < 11) {
+            friends.push(user)
+          }
+          allFriends.push(user)
+        } else {
+          if (noFriends?.length < 7) {
+            noFriends.push(user)
+          }
+        }
+      })
+      setFriends(friends)
+      setNoFriends(noFriends)
+    }
+  }, [realTimeUsers, authUser])
 
   const getOneUser = async (user) => {
     try {
@@ -44,9 +89,24 @@ const useUser = () => {
     }
   }
 
+  const updateFriends = async (authFriends, user) => {
+    try {
+      const authRefDoc = doc(db, 'users', authUser.uid)
+      const userRefDoc = doc(db, 'users', user.uid)
+      await updateDoc(authRefDoc, { ...authUser, friends: authFriends })
+      await updateDoc(userRefDoc, user)
+      updateUser({ ...authUser, friends: authFriends })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return {
+    friends,
+    noFriends,
     getOneUser,
     updateImageUser,
+    updateFriends,
   }
 }
 

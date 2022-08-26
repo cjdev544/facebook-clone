@@ -1,16 +1,20 @@
 import Image from 'next/image'
 
+import useUser from '../hooks/useUser'
 import useHeightScreen from '../hooks/useHeightScreen'
 import ImageInstagram from '../public/bruce-avatar.jpg'
 import AvatarName from './AvatarName'
 
 const SidebarRight = () => {
   const { viewportHeight } = useHeightScreen()
+  const { friends, noFriends } = useUser()
 
   const user = {
     displayName: 'Usuario de prueba',
     photoURL: ImageInstagram,
   }
+  console.log('Amigos', friends)
+  console.log('no amigos', noFriends)
 
   return (
     <aside
@@ -33,18 +37,20 @@ const SidebarRight = () => {
         </div>
       </div>
       <h2 className='text-gray-500 font-bold mt-5'>Contactos</h2>
-      <p className='text-center font-semibold'>Sin contactos</p>
-      <AvatarName user={user} />
+      {friends?.length === 0 ? (
+        <p className='text-center font-semibold'>Sin contactos</p>
+      ) : (
+        friends.map((user) => <AvatarName key={user.uid} user={user} />)
+      )}
+
       <h2 className='text-gray-500 font-bold pt-5 border-t-2 border-gray-200'>
         Sugeridos
       </h2>
-      <p className='text-center font-semibold'>No hay sugerencias</p>
-      <AvatarName user={user} />
-      <AvatarName user={user} />
-      <AvatarName user={user} />
-      <AvatarName user={user} />
-      <AvatarName user={user} />
-      <AvatarName user={user} />
+      {noFriends.length === 0 && (
+        <p className='text-center font-semibold'>No hay sugerencias</p>
+      )}
+      {noFriends.length !== 0 &&
+        noFriends.map((user) => <AvatarName key={user.uid} user={user} />)}
     </aside>
   )
 }
