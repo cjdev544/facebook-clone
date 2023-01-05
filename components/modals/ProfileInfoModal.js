@@ -63,7 +63,7 @@ const ProfileInfoModal = ({ showDivImage, setShowModal, setShowDivImage }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(text)
+
     // API call here
     const dataPost = {
       user: authUser?.uid,

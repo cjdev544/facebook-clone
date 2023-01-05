@@ -68,7 +68,6 @@ const PostModalProfile = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(text)
     // API call here
     if (isAuthUser) {
       const dataPost = {

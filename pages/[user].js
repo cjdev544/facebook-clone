@@ -15,7 +15,7 @@ import Friends from '../components/Friends'
 
 const User = () => {
   const { authUser } = useAuth()
-  const { friends, getOneUser } = useUser()
+  const { getOneUser } = useUser()
   const [userPage, setUserPage] = useState()
   const [formLogin, setFormLogin] = useState(true)
   const { query } = useRouter()
@@ -24,6 +24,7 @@ const User = () => {
   const [showPhotosGrid, setShowPhotosGrid] = useState(false)
   const [showFriends, setShowFriends] = useState(false)
   const [isAuthProfile, setIsAuthProfile] = useState(false)
+  const [friendsNumber, setFriendsNumber] = useState(null)
 
   useEffect(() => {
     if (authUser && userPage) {
@@ -60,8 +61,7 @@ const User = () => {
 
   if (userPage === null) return 'Usuario no encontrado'
   if (!userPage) return null
-  console.log({ showFriends })
-  console.log({ showPhotosGrid })
+
   if (authUser?.uid) {
     return (
       <div>
@@ -77,6 +77,7 @@ const User = () => {
               authUser={authUser}
               userPage={userPage}
               isAuthProfile={isAuthProfile}
+              friendsNumber={friendsNumber}
               showPhotosGrid={showPhotosGrid}
               setShowPhotosGrid={setShowPhotosGrid}
               setShowFriends={setShowFriends}
@@ -101,7 +102,11 @@ const User = () => {
               {showFriends && (
                 <div className='mx-2 sm:mx-10 bg-white p-3 my-4 shadow-md rounded-lg'>
                   <h3 className='font-bold text-xl'>Amigos</h3>
-                  <Friends friends={friends} />
+                  <Friends
+                    setShowPhotosGrid={setShowPhotosGrid}
+                    setShowFriends={setShowFriends}
+                    setFriendsNumber={setFriendsNumber}
+                  />
                 </div>
               )}
             </div>

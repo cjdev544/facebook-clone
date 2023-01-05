@@ -23,6 +23,7 @@ const useUser = () => {
           uid: data.uid,
           displayName: data.displayName,
           photoURL: data.photoURL,
+          friends: data.friends,
         }
       })
 
@@ -49,6 +50,7 @@ const useUser = () => {
       })
       setFriends(friends)
       setNoFriends(noFriends)
+      setAllFriends(allFriends)
     }
   }, [realTimeUsers, authUser])
 
@@ -85,7 +87,7 @@ const useUser = () => {
         updateUser({ ...authUser, photoURL: imageUrl })
       }
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 
@@ -97,12 +99,13 @@ const useUser = () => {
       await updateDoc(userRefDoc, user)
       updateUser({ ...authUser, friends: authFriends })
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 
   return {
     friends,
+    allFriends,
     noFriends,
     getOneUser,
     updateImageUser,

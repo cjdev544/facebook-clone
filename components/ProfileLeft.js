@@ -29,7 +29,7 @@ const ProfileLeft = ({ userPage, setShowPhotosGrid, setShowFriends }) => {
   if (loading) return null
 
   const postsWithImage = posts?.filter((post) => post?.image)
-  console.log({ friends })
+
   return (
     <aside className='sm:sticky top-[40px] sm:self-start sm:flex flex-col sm:w-2/5 mt-5 overflow-y-scroll scrollbar-hide'>
       <div className='p-3 bg-white rounded-xl shadow-md'>

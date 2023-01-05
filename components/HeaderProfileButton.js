@@ -37,9 +37,10 @@ const HeaderProfileButton = ({ userPage, authUser }) => {
 
   const removeFriend = async () => {
     setIsLoading(true)
-    let authFriends
 
-    authFriends = authUser.friends.filter((userId) => userId !== userPage.uid)
+    const authFriends = authUser.friends.filter(
+      (userId) => userId !== userPage.uid
+    )
     userPage.friends = userPage.friends.filter(
       (userId) => userId !== authUser.uid
     )

@@ -13,8 +13,6 @@ const SidebarRight = () => {
     displayName: 'Usuario de prueba',
     photoURL: ImageInstagram,
   }
-  console.log('Amigos', friends)
-  console.log('no amigos', noFriends)
 
   return (
     <aside

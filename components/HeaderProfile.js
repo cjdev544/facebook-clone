@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { CameraIcon } from '@heroicons/react/solid'
 import { toast } from 'react-toastify'
@@ -11,6 +11,7 @@ const HeaderProfile = ({
   userPage,
   isAuthProfile,
   showPhotosGrid,
+  friendsNumber,
   setShowPhotosGrid,
   setShowFriends,
 }) => {
@@ -18,6 +19,12 @@ const HeaderProfile = ({
   const inputAvatarFile = useRef()
 
   const { updateImageUser } = useUser()
+
+  useEffect(() => {
+    if (friendsNumber !== null) {
+      userPage.friends.length = userPage.friends.length - 1
+    }
+  }, [friendsNumber, userPage])
 
   const onChangeFile = (e, type) => {
     if (
