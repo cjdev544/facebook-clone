@@ -8,9 +8,13 @@ import {
 } from '@heroicons/react/solid'
 
 import usePosts from '../hooks/usePosts'
+import useUser from '../hooks/useUser'
+import AvatarName from './AvatarName'
 
-const ProfileLeft = ({ userPage, setShowPhotosGrid }) => {
+const ProfileLeft = ({ userPage, setShowPhotosGrid, setShowFriends }) => {
   const { realTimePosts, loading } = usePosts()
+  const { friends } = useUser()
+
   const [posts, setPosts] = useState()
 
   useEffect(() => {
@@ -25,7 +29,7 @@ const ProfileLeft = ({ userPage, setShowPhotosGrid }) => {
   if (loading) return null
 
   const postsWithImage = posts?.filter((post) => post?.image)
-
+  console.log({ friends })
   return (
     <aside className='sm:sticky top-[40px] sm:self-start sm:flex flex-col sm:w-2/5 mt-5 overflow-y-scroll scrollbar-hide'>
       <div className='p-3 bg-white rounded-xl shadow-md'>
@@ -82,6 +86,22 @@ const ProfileLeft = ({ userPage, setShowPhotosGrid }) => {
             }
           })}
         </div>
+      </div>
+      <div className='mt-5 p-3 bg-white rounded-xl shadow-md'>
+        <div className='flex items-center justify-between'>
+          <h3 className='font-bold text-xl'>Amigos</h3>
+          <p
+            onClick={() => setShowFriends(true)}
+            className='text-blue-500 cursor-pointer'
+          >
+            Ver todos los amigos
+          </p>
+        </div>
+        {friends?.map((user, idx) => {
+          if (idx < 6) {
+            return <AvatarName key={user.uid} user={user} />
+          }
+        })}
       </div>
     </aside>
   )

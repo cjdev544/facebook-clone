@@ -5,9 +5,9 @@ import AvatarNoFound from '../public/avatar.png'
 
 const AvatarName = ({ user }) => {
   return (
-    <div className='flex p-3 hover:bg-gray-200 rounded-lg cursor-pointer'>
+    <div className='p-3 hover:bg-gray-200 cursor-pointer'>
       <Link href={`/${user.uid}`}>
-        <a>
+        <a className='flex align-center'>
           <Image
             src={user?.photoURL ? user.photoURL : AvatarNoFound}
             width={30}

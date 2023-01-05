@@ -32,7 +32,7 @@ const useUser = () => {
       const noFriends = []
       const allFriends = []
       users?.map((user) => {
-        const isFriend = authUser.friends.find((userId) => {
+        const isFriend = authUser?.friends?.find((userId) => {
           if (userId === user?.uid) return true
         })
 

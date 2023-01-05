@@ -12,6 +12,7 @@ const HeaderProfile = ({
   isAuthProfile,
   showPhotosGrid,
   setShowPhotosGrid,
+  setShowFriends,
 }) => {
   const inputProfileFile = useRef()
   const inputAvatarFile = useRef()
@@ -111,7 +112,10 @@ const HeaderProfile = ({
       <div className='max-w-4xl mx-auto pt-4'>
         <div className='flex items-center mx-10 space-x-10'>
           <p
-            onClick={() => setShowPhotosGrid(false)}
+            onClick={() => {
+              setShowPhotosGrid(false)
+              setShowFriends(false)
+            }}
             className={`pb-4 px-4 font-semibold cursor-pointer ${
               !showPhotosGrid
                 ? 'border-b-4 border-blue-500 text-blue-500'
@@ -121,7 +125,10 @@ const HeaderProfile = ({
             Publicaciones
           </p>
           <p
-            onClick={() => setShowPhotosGrid(true)}
+            onClick={() => {
+              setShowPhotosGrid(true)
+              setShowFriends(false)
+            }}
             className={`pb-4 px-4 font-semibold cursor-pointer ${
               showPhotosGrid
                 ? 'border-b-4 border-blue-500 text-blue-500'
