@@ -1,5 +1,6 @@
-import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import Image from 'next/image'
 
 import useAuth from '../hooks/useAuth'
@@ -9,9 +10,15 @@ const Friends = ({ setShowPhotosGrid, setShowFriends, setFriendsNumber }) => {
   const { query } = useRouter()
   const { user } = query
   const { authUser } = useAuth()
-  const { allFriends, getOneUser, updateFriends } = useUser()
+  const { allFriends, getFriendsUser, updateFriends } = useUser()
+  const [userFriends, setUserFriends] = useState([])
 
-  if (allFriends?.length === 0) return null
+  useEffect(() => {
+    getFriendsUser(user).then((res) => {
+      setUserFriends(res)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const removeFriend = async (user) => {
     const { userPage } = await getOneUser(user.uid)
@@ -24,9 +31,26 @@ const Friends = ({ setShowPhotosGrid, setShowFriends, setFriendsNumber }) => {
     setFriendsNumber(userPage.friends.length)
   }
 
+  const addFriend = async (friend) => {
+    let authFriends
+
+    if (friend?.friends) {
+      friend.friends = [...friend.friends, authUser.uid]
+    } else {
+      friend.friends = [authUser.uid]
+    }
+
+    if (authUser?.friends) {
+      authFriends = [...authUser.friends, friend.uid]
+    } else {
+      authFriends = [friend.uid]
+    }
+    await updateFriends(authFriends, friend)
+  }
+
   return (
     <div className='grid grid-cols-2 gap-10'>
-      {allFriends.map((friend) => (
+      {userFriends?.map((friend) => (
         <div key={friend.uid} className='p-2'>
           <div className='flex justify-between items-center'>
             <div
@@ -48,12 +72,21 @@ const Friends = ({ setShowPhotosGrid, setShowFriends, setFriendsNumber }) => {
                 </a>
               </Link>
             </div>
-            <button
-              className='text-red-500'
-              onClick={() => removeFriend(friend)}
-            >
-              eliminar
-            </button>
+            {user === authUser.uid ? (
+              <button
+                className='text-red-500'
+                onClick={() => removeFriend(friend)}
+              >
+                eliminar
+              </button>
+            ) : (
+              <button
+                className='text-blue-500'
+                onClick={() => addFriend(friend)}
+              >
+                agregar
+              </button>
+            )}
           </div>
         </div>
       ))}

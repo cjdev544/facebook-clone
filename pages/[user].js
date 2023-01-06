@@ -20,7 +20,9 @@ const User = () => {
   const [formLogin, setFormLogin] = useState(true)
   const { query } = useRouter()
   const { user } = query
+  const { getFriendsUser } = useUser()
 
+  const [userFriends, setUserFriends] = useState([])
   const [showPhotosGrid, setShowPhotosGrid] = useState(false)
   const [showFriends, setShowFriends] = useState(false)
   const [isAuthProfile, setIsAuthProfile] = useState(false)
@@ -40,6 +42,13 @@ const User = () => {
       .catch((err) => {
         setUserPage(err.userPage)
       })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user])
+
+  useEffect(() => {
+    getFriendsUser(user).then((res) => {
+      setUserFriends(res)
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
@@ -87,6 +96,7 @@ const User = () => {
                 <div className='flex flex-col sm:flex-row mx-2 sm:mx-10'>
                   <ProfileLeft
                     userPage={userPage}
+                    userFriends={userFriends}
                     setShowPhotosGrid={setShowPhotosGrid}
                     setShowFriends={setShowFriends}
                   />

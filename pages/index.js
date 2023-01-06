@@ -13,6 +13,7 @@ import Feed from '../components/feed'
 export default function Home() {
   const { authUser } = useAuth()
   const [formLogin, setFormLogin] = useState(true)
+  const [showFriends, setShowFriends] = useState(false)
 
   useUser()
 
@@ -43,9 +44,15 @@ export default function Home() {
         <Header />
         <main className='bg-gray-100'>
           <div className='max-w-7xl mx-auto overflow-hidden flex justify-between'>
-            <SidebarLeft />
-            <Feed />
-            <SidebarRight />
+            <SidebarLeft setShowFriends={setShowFriends} />
+            {!showFriends ? (
+              <>
+                <Feed />
+                <SidebarRight />
+              </>
+            ) : (
+              <p>Aqui amigos</p>
+            )}
           </div>
         </main>
       </div>

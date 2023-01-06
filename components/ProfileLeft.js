@@ -8,12 +8,15 @@ import {
 } from '@heroicons/react/solid'
 
 import usePosts from '../hooks/usePosts'
-import useUser from '../hooks/useUser'
 import AvatarName from './AvatarName'
 
-const ProfileLeft = ({ userPage, setShowPhotosGrid, setShowFriends }) => {
+const ProfileLeft = ({
+  userPage,
+  userFriends,
+  setShowPhotosGrid,
+  setShowFriends,
+}) => {
   const { realTimePosts, loading } = usePosts()
-  const { friends } = useUser()
 
   const [posts, setPosts] = useState()
 
@@ -27,7 +30,6 @@ const ProfileLeft = ({ userPage, setShowPhotosGrid, setShowFriends }) => {
   }, [loading])
 
   if (loading) return null
-
   const postsWithImage = posts?.filter((post) => post?.image)
 
   return (
@@ -97,7 +99,7 @@ const ProfileLeft = ({ userPage, setShowPhotosGrid, setShowFriends }) => {
             Ver todos los amigos
           </p>
         </div>
-        {friends?.map((user, idx) => {
+        {userFriends?.map((user, idx) => {
           if (idx < 6) {
             return <AvatarName key={user.uid} user={user} />
           }

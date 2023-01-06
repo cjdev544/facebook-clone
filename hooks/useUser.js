@@ -1,5 +1,12 @@
 import { useEffect, useState } from 'react'
-import { doc, collection, getDoc, updateDoc, query } from 'firebase/firestore'
+import {
+  doc,
+  collection,
+  getDoc,
+  getDocs,
+  updateDoc,
+  query,
+} from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { useCollection } from 'react-firebase-hooks/firestore'
 
@@ -103,6 +110,25 @@ const useUser = () => {
     }
   }
 
+  const getFriendsUser = async (userId) => {
+    const { userPage } = await getOneUser(userId)
+
+    const allUsers = []
+    const q = query(collection(db, 'users'))
+    const querySnapshot = await getDocs(q)
+    querySnapshot.forEach((doc) => {
+      allUsers.push(doc.data())
+    })
+
+    const array = []
+    userPage?.friends.forEach((friendId) => {
+      const isFriend = allUsers.find((user) => user.uid === friendId)
+      if (isFriend) array.push(isFriend)
+    })
+
+    return array
+  }
+
   return {
     friends,
     allFriends,
@@ -110,6 +136,7 @@ const useUser = () => {
     getOneUser,
     updateImageUser,
     updateFriends,
+    getFriendsUser,
   }
 }
 
