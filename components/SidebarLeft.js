@@ -15,7 +15,7 @@ import useHeightScreen from '../hooks/useHeightScreen'
 import IconRow from './IconRow'
 import AvatarName from './AvatarName'
 
-const SidebarLeft = ({ setShowFriends }) => {
+const SidebarLeft = () => {
   const { authUser } = useAuth()
   const { viewportHeight } = useHeightScreen()
 
@@ -25,11 +25,7 @@ const SidebarLeft = ({ setShowFriends }) => {
       className='overflow-y-scroll p-2 max-w-[600px] xl:min-w-[300px] scrollbar-hide'
     >
       <AvatarName user={authUser} />
-      <IconRow
-        Icon={UsersIcon}
-        title='Amigos'
-        click={() => setShowFriends(true)}
-      />
+      <IconRow Icon={UsersIcon} title='Amigos' />
       <IconRow Icon={UserGroupIcon} title='Grupos' />
       <IconRow Icon={ShoppingBagIcon} title='Marketplace' />
       <IconRow Icon={DesktopComputerIcon} title='Watch' />

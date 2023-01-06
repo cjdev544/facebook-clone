@@ -29,10 +29,16 @@ const User = () => {
   const [friendsNumber, setFriendsNumber] = useState(null)
 
   useEffect(() => {
+    console.log(authUser?.uid, userPage?.uid)
     if (authUser && userPage) {
-      if (authUser.uid === userPage.uid) setIsAuthProfile(true)
+      if (authUser.uid === userPage.uid) {
+        setIsAuthProfile(true)
+      } else {
+        setIsAuthProfile(false)
+      }
     }
   }, [authUser, userPage])
+  console.log(isAuthProfile)
 
   useEffect(() => {
     getOneUser(user)
