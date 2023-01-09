@@ -8,7 +8,7 @@ import Header from '../components/Header'
 import AuthForm from '../components/forms/AuthForm'
 import SidebarLeft from '../components/SidebarLeft'
 import SidebarRight from '../components/SidebarRight'
-import Feed from '../components/feed'
+import Feed from '../components/Feed'
 
 export default function Home() {
   const { authUser } = useAuth()
